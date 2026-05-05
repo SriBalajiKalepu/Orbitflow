@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 console.log('🚀 OrbitFlow API Base URL:', API_BASE_URL);
 
 const api: AxiosInstance = axios.create({
@@ -8,6 +8,12 @@ const api: AxiosInstance = axios.create({
   headers: { 'Content-Type': 'application/json' },
   timeout: 15000,
 });
+
+// Helper to ensure URLs are joined correctly
+export const getApiUrl = (endpoint: string) => {
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  return `${API_BASE_URL}${cleanEndpoint}`;
+};
 
 // ─── Request Interceptor ──────────────────────────────────────────────────────
 api.interceptors.request.use(
