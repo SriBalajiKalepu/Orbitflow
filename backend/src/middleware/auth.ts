@@ -56,11 +56,13 @@ export const requireProjectMember = async (
     });
 
     if (!membership) {
-      // Check if the user is the project owner
+      // Check if the user is a global admin or project owner
+      const isGlobalAdmin = authReq.user?.globalRole === 'ADMIN';
       const project = await prisma.project.findFirst({
         where: { id: projectId, ownerId: userId },
       });
-      if (!project) {
+
+      if (!isGlobalAdmin && !project) {
         sendError(res, 'You are not a member of this project', 403);
         return;
       }
@@ -97,7 +99,9 @@ export const requireProjectAdmin = async (
       where: { id: projectId, ownerId: userId },
     });
 
-    if (!isOwner && membership?.role !== MemberRole.ADMIN) {
+    const isGlobalAdmin = authReq.user?.globalRole === 'ADMIN';
+
+    if (!isGlobalAdmin && !isOwner && membership?.role !== MemberRole.ADMIN) {
       sendError(res, 'Project admin access required', 403);
       return;
     }
