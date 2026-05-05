@@ -68,7 +68,7 @@ PORT=3001
 cd backend
 npm install
 npx prisma db push
-npm run db:seed  # Seeds the database with the initial Admin account
+npm run seed  # Seeds the database with the initial Admin account
 npm run dev
 ```
 
