@@ -37,9 +37,9 @@ export const getProjects = async (req: Request, res: Response): Promise<void> =>
   });
 
   // Compute progress
-  const projectsWithProgress = projects.map((p) => {
-    const total = p.tasks.length;
-    const completed = p.tasks.filter((t) => t.status === 'COMPLETED').length;
+  const projectsWithProgress = projects.map((p: any) => {
+    const total = p.tasks?.length || 0;
+    const completed = p.tasks?.filter((t: any) => t.status === 'COMPLETED').length || 0;
     const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
     const { tasks, ...rest } = p;
     return { ...rest, progress, taskCount: total, completedCount: completed };
@@ -76,11 +76,11 @@ export const getProject = async (req: Request, res: Response): Promise<void> => 
 
   if (!project) { sendError(res, 'Project not found', 404); return; }
 
-  const total = project.tasks.length;
-  const completed = project.tasks.filter((t) => t.status === 'COMPLETED').length;
-  const overdue = project.tasks.filter(
-    (t) => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== 'COMPLETED'
-  ).length;
+  const total = (project as any).tasks?.length || 0;
+  const completed = (project as any).tasks?.filter((t: any) => t.status === 'COMPLETED').length || 0;
+  const overdue = (project as any).tasks?.filter(
+    (t: any) => t.dueDate && new Date(t.dueDate) < new Date() && t.status !== 'COMPLETED'
+  ).length || 0;
   const progress = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   sendSuccess(res, { ...project, progress, taskCount: total, completedCount: completed, overdueCount: overdue });

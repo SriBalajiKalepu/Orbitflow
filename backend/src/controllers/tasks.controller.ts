@@ -89,7 +89,7 @@ export const createTask = async (req: Request, res: Response): Promise<void> => 
       assigneeId: assigneeId || null,
       projectId,
       creatorId: userId,
-      position: position ?? (maxPosition._max.position ?? -1) + 1,
+      position: position ?? (maxPosition._max?.position ?? -1) + 1,
     },
     include: taskInclude,
   });
