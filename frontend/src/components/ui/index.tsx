@@ -22,6 +22,7 @@ interface AvatarProps {
   name: string;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
+  title?: string;
 }
 
 const sizeClasses = {
@@ -32,10 +33,10 @@ const sizeClasses = {
   xl: 'w-16 h-16 text-xl',
 };
 
-export const Avatar: React.FC<AvatarProps> = ({ src, name, size = 'md', className }) => {
+export const Avatar: React.FC<AvatarProps> = ({ src, name, size = 'md', className, title }) => {
   const initials = name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
   return (
-    <div className={cn(
+    <div title={title} className={cn(
       'rounded-full flex items-center justify-center font-semibold flex-shrink-0 overflow-hidden',
       'bg-gradient-to-br from-indigo-500 to-purple-600 text-white',
       sizeClasses[size], className

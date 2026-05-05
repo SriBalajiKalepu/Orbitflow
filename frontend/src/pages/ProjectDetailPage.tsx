@@ -11,7 +11,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import {
-  Plus, ArrowLeft, Users, Settings, LayoutKanban, Activity,
+  Plus, ArrowLeft, Users, Settings, Kanban, Activity,
   Calendar, CheckCircle, AlertTriangle, MessageCircle, GripVertical
 } from 'lucide-react';
 import { projectsApi, tasksApi } from '@/api';
@@ -23,7 +23,7 @@ import {
   priorityDotColors, formatDate, formatRelative, isOverdue, cn,
   projectStatusColors
 } from '@/utils';
-import type { Task, TaskForm, TaskStatus, Priority } from '@/types';
+import type { Task, TaskForm, TaskStatus, Priority, ProjectStatus } from '@/types';
 import toast from 'react-hot-toast';
 
 const COLUMNS: { id: TaskStatus; label: string; color: string }[] = [
@@ -425,7 +425,7 @@ export const ProjectDetailPage: React.FC = () => {
                 {isProjectAdmin ? (
                   <select
                     value={project.status}
-                    onChange={(e) => updateProjectDetails({ status: e.target.value })}
+                    onChange={(e) => updateProjectDetails({ status: e.target.value as ProjectStatus })}
                     className={cn(
                       "text-xs font-semibold px-2.5 py-0.5 rounded-full border focus:outline-none appearance-none cursor-pointer transition-colors",
                       projectStatusColors[project.status]
