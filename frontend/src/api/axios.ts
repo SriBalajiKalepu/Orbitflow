@@ -1,6 +1,9 @@
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+let API_BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+if (API_BASE_URL !== '/api' && !API_BASE_URL.startsWith('http')) {
+  API_BASE_URL = `https://${API_BASE_URL}`;
+}
 console.log('🚀 OrbitFlow API Base URL:', API_BASE_URL);
 
 const api: AxiosInstance = axios.create({
