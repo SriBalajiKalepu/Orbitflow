@@ -23,7 +23,7 @@ import {
   priorityDotColors, formatDate, formatRelative, isOverdue, cn,
   projectStatusColors
 } from '@/utils';
-import type { Task, TaskForm, TaskStatus, Priority, ProjectStatus } from '@/types';
+import type { Task, TaskForm, TaskStatus, Priority, ProjectStatus, ProjectForm } from '@/types';
 import toast from 'react-hot-toast';
 
 const COLUMNS: { id: TaskStatus; label: string; color: string }[] = [
