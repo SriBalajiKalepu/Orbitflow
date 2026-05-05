@@ -330,7 +330,7 @@ export const ProjectDetailPage: React.FC = () => {
   });
 
   const { mutate: updateProjectDetails } = useMutation({
-    mutationFn: (data: { status: string }) => projectsApi.update(id!, data),
+    mutationFn: (data: Partial<ProjectForm>) => projectsApi.update(id!, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['project', id] });
       toast.success('Project status updated');
